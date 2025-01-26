@@ -5,5 +5,6 @@
     "documentation": "https://github.com/albummi/timed-entity-card",
     "requirements": [],
     "dependencies": [],
-    "codeowners": ["@albummi"]
+    "codeowners": ["@albummi"],
+    "config_flow": true  // Aktiviert den GUI-Konfigurationsfluss
 }

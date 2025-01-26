@@ -1,8 +1,22 @@
 {
-    "state": {
-        "on": "On",
-        "off": "Off"
-    },
     "title": "Timed Entity Card",
-    "description": "Control an entity with a countdown timer."
+    "step": {
+        "user": {
+            "title": "Configure Timed Entity Card",
+            "description": "Set up the main entity and options for the countdown.",
+            "data": {
+                "main_entity": "Main entity to control",
+                "default_time": "Default countdown time (hh:mm:ss)",
+                "additional_entities": "Entities to turn off after countdown"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Options for Timed Entity Card",
+                "description": "Update the options for this integration."
+            }
+        }
+    }
 }
