@@ -1,6 +1,6 @@
 from homeassistant import config_entries
 from homeassistant.core import callback
-from .const import DOMAIN  # Importiere die Domain-Konstante
+from .const import DOMAIN
 
 class TimedEntityCardConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Timed Entity Card."""
@@ -8,10 +8,10 @@ class TimedEntityCardConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
     async def async_step_user(self, user_input=None):
-        """Handle the initial step."""
+        """Handle the initial step of configuration."""
         errors = {}
         if user_input is not None:
-            # Validiere die Eingabe und speichere die Konfiguration
+            # Create entry with user-provided data
             return self.async_create_entry(title="Timed Entity Card", data=user_input)
 
         return self.async_show_form(
@@ -23,12 +23,12 @@ class TimedEntityCardConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def _get_schema():
-        """Return the input schema for the form."""
+        """Return the schema for the config flow form."""
         from homeassistant.helpers import config_validation as cv
         import voluptuous as vol
 
         return vol.Schema({
             vol.Required("main_entity"): cv.entity_id,
             vol.Optional("default_time", default="00:05:00"): str,
-            vol.Optional("additional_entities", default=[]): cv.multi_select([]),
+            vol.Optional("additional_entities", default=[]): cv.multi_select([])
         })

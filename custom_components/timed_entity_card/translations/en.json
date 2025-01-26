@@ -10,13 +10,5 @@
                 "additional_entities": "Entities to turn off after countdown"
             }
         }
-    },
-    "options": {
-        "step": {
-            "init": {
-                "title": "Options for Timed Entity Card",
-                "description": "Update the options for this integration."
-            }
-        }
     }
 }
