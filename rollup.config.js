@@ -1,11 +1,15 @@
-import resolve from '@rollup/plugin-node-resolve';
-import { terser } from "rollup-plugin-terser";
+import typescript from '@rollup/plugin-typescript';
+import { terser } from 'rollup-plugin-terser';
 
 export default {
-  input: 'src/timed-entity-card.js',
+  input: 'src/timed-entity-card.ts',
   output: {
     file: 'dist/timed-entity-card.js',
     format: 'es',
+    sourcemap: true
   },
-  plugins: [resolve(), terser()],
+  plugins: [
+    typescript(),
+    terser()
+  ]
 };

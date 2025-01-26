@@ -32,21 +32,20 @@ class TimedEntityCard extends LitElement {
   `)();
   constructor() {
     super();
-    this.config = {};
-    this.hass = {};
+    this.hass = undefined;
+    this.config = undefined;
   }
   render() {
     return html`
       <div class="card">
         <div class="header">Timed Entity Card</div>
         <div class="time-display">
-          Countdown Time: ${this.config.countdown_time || "Not Set"}
+          Countdown Time: ${this.config?.countdown_time || "Not Set"}
         </div>
-        <!-- Weitere Kartenelemente hier -->
       </div>
     `;
   }
 }
 
-// Register the custom element
+// Registriere das Custom Element
 customElements.define("timed-entity-card", TimedEntityCard);
