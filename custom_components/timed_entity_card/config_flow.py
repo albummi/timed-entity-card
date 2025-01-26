@@ -13,7 +13,8 @@ class TimedEntityCardConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
     async def async_step_user(self, user_input=None):
-        _LOGGER.debug("Starting config flow: async_step_user")
+        """Handle the initial step."""
+        _LOGGER.debug("Starting user configuration flow")
         errors = {}
 
         if user_input is not None:
@@ -23,14 +24,13 @@ class TimedEntityCardConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 if not user_input.get("main_entity"):
                     errors["base"] = "entity_required"
                 else:
-                    # Erstelle den Eintrag, wenn alles korrekt ist
-                    _LOGGER.debug("Creating config entry")
+                    _LOGGER.debug("User input is valid, creating config entry")
                     return self.async_create_entry(title="Timed Entity Card", data=user_input)
             except Exception as e:
-                _LOGGER.error("Error in config flow: %s", e)
+                _LOGGER.error("Error during configuration flow: %s", e)
                 errors["base"] = "unknown"
 
-        # Schema definieren
+        # Schema für das Formular
         data_schema = vol.Schema({
             vol.Required("main_entity"): cv.entity_id,
             vol.Optional("default_time", default="00:05:00"): str,
