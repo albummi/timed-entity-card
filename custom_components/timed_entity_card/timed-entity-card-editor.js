@@ -6,16 +6,16 @@ class TimedEntityCardEditor extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
       <div>
-        <label>Haupt-Entity:</label>
+        <label>Main Entity:</label>
         <input type="text" id="entity" value="${this.config.entity || ''}">
       </div>
       <div>
-        <label>Zusätzliche Entitäten:</label>
-        <input type="text" id="additional_entities" value="${this.config.additional_entities || ''}">
+        <label>Default Time (hh:mm:ss):</label>
+        <input type="text" id="default_time" value="${this.config.default_time || '00:10:00'}">
       </div>
       <div>
-        <label>Standardzeit (hh:mm:ss):</label>
-        <input type="text" id="default_time" value="${this.config.default_time || '00:10:00'}">
+        <label>Switch Entities (comma-separated):</label>
+        <input type="text" id="additional_entities" value="${this.config.additional_entities || ''}">
       </div>
     `;
     this._addEventListeners();

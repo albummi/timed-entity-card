@@ -1,52 +1,36 @@
-class TimedEntityCard extends HTMLElement {
+class TimedEntityCardEditor extends HTMLElement {
   setConfig(config) {
-    if (!config.entity) {
-      throw new Error("Die `entity`-Eigenschaft muss definiert sein.");
-    }
     this.config = config;
   }
 
   connectedCallback() {
     this.innerHTML = `
-      <ha-card>
-        <h1>${this.config.title || "Zeitgesteuerte Entität"}</h1>
-        <div>
-          <button id="start">Start</button>
-        </div>
-      </ha-card>
+      <div>
+        <label>Main Entity:</label>
+        <input type="text" id="entity" value="${this.config.entity || ''}">
+      </div>
+      <div>
+        <label>Default Time (hh:mm:ss):</label>
+        <input type="text" id="default_time" value="${this.config.default_time || '00:10:00'}">
+      </div>
+      <div>
+        <label>Switch Entities (comma-separated):</label>
+        <input type="text" id="additional_entities" value="${this.config.additional_entities || ''}">
+      </div>
     `;
     this._addEventListeners();
   }
 
   _addEventListeners() {
-    const startButton = this.querySelector("#start");
-    startButton.addEventListener("click", () => {
-      const additionalEntities = this.config.additional_entities || [];
-      this._callService(additionalEntities);
+    const entityInput = this.querySelector("#entity");
+    entityInput.addEventListener("input", () => {
+      this.config.entity = entityInput.value;
     });
-  }
 
-  _callService(additionalEntities) {
-    // Führe den gewünschten Service aus
-    this.hass.callService("timed_entity", "start_timer", {
-      entity_id: this.config.entity,
-      additional_entities: additionalEntities,
+    const additionalEntitiesInput = this.querySelector("#additional_entities");
+    additionalEntitiesInput.addEventListener("input", () => {
+      this.config.additional_entities = additionalEntitiesInput.value.split(",").map(item => item.trim());
     });
-  }
 
-  set hass(hass) {
-    this._hass = hass;
-  }
-
-  static getConfigElement() {
-    return document.createElement("timed-entity-card-editor");
-  }
-
-  static getStubConfig() {
-    return {
-      entity: "light.example_light",
-    };
-  }
-}
-
-customElements.define("timed-entity-card", TimedEntityCard);
+    const defaultTimeInput = this.querySelector("#default_time");
+    defaultTimeInput.addEventListener("input", (

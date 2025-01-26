@@ -1,12 +1,10 @@
 {
   "name": "timed-entity-card",
   "version": "1.0.0",
-  "main": "timed-entity-card.js",
-  "dependencies": {
-    "lit-element": "^2.4.0"
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
   },
-  "scripts": {
-    "start": "npm run build",
-    "build": "babel src --out-dir www"
-  }
+  "main": "timed-entity-card.js"
 }
