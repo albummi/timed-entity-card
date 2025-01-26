@@ -1,0 +1,21 @@
+
+---
+
+### **5. Datei: `.translations/en.json`**
+
+Diese Datei enthält die Übersetzungen (aktuell nur Englisch). 
+
+```json
+{
+  "common": {
+    "title": "Timed Entity Card",
+    "description": "A card for timed control of entities."
+  },
+  "labels": {
+    "entity": "Main Entity",
+    "additional_entities": "Additional Entities",
+    "duration": "Default Countdown (Minutes)",
+    "action": "Action",
+    "show_countdown_on": "Show Countdown On"
+  }
+}
