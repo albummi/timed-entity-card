@@ -1,9 +1,10 @@
 {
   "name": "Timed Entity Card",
-  "description": "A Home Assistant Lovelace card to control entities with a timer or clock functionality.",
+  "content_integration": "timed_entity_card",
+  "repository": "your-username/timed-entity-card",
+  "homepage": "https://github.com/albummi/timed-entity-card",
+  "category": "front-end",
   "documentation": "https://github.com/albummi/timed-entity-card",
-  "version": "1.0.0",
-  "frontend": true,
-  "iot_class": "local_polling",
-  "render_readme": true
+  "install_method": "hacs",
+  "version": "1.0.0"
 }
