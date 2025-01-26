@@ -110,7 +110,7 @@ class TimedEntityCard extends HTMLElement {
       ? this._parseTimeToSeconds(countdownValue)
       : null;
     const targetTime = digitalTimeValue || analogTimeValue || null;
-    this._hass.callService("timed_entity", "start_timer", {
+    this.hass.callService("timed_entity", "start_timer", {
       entity_id: this.config.entity,
       duration: duration,
       target_time: targetTime,
@@ -131,8 +131,23 @@ class TimedEntityCard extends HTMLElement {
   static getStubConfig() {
     return {
       entity: "light.example_light",
-      show_options: ["countdown", "digital_clock", "analog_clock"]
+      show_options: ["countdown", "digital_clock", "analog_clock"],
+      default_time: "00:10:00",
+      additional_entities: [],
+      action: "toggle"
     };
   }
 }
-customElements.define("timed-entity-card", TimedEntityCard);
+
+// Überprüfen, ob das Element bereits registriert wurde, bevor wir es registrieren
+if (!customElements.get("timed-entity-card")) {
+  customElements.define("timed-entity-card", TimedEntityCard);
+}
+
+// Verknüpfung des Editors
+window.customCards = window.customCards || [];
+window.customCards.push({
+  type: "timed-entity-card",
+  name: "Timed Entity Card",
+  description: "Eine Karte, um Entitäten mit Zeitsteuerung zu schalten."
+});
