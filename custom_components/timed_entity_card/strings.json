@@ -1,16 +1,10 @@
 {
-  "en": {
-    "title": "Timed Entity Card",
-    "description": "Control entities with a countdown timer.",
-    "main_entity": "Main Entity",
-    "countdown_time": "Countdown Time",
-    "start_button": "Start Timer"
-  },
-  "de": {
-    "title": "Timed Entity Card",
-    "description": "Steuere Entitäten mit einem Countdown-Timer.",
-    "main_entity": "Haupt Entität",
-    "countdown_time": "Countdown Zeit",
-    "start_button": "Timer starten"
+  "title": "Timed Entity Card",
+  "step_user": {
+    "title": "Timed Entity Card configuration",
+    "data": {
+      "main_entity": "Main Entity",
+      "default_time": "Default time for countdown"
+    }
   }
 }

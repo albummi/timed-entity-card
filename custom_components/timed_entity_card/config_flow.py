@@ -14,13 +14,15 @@ class TimedEntityCardConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def async_step_user(self, user_input=None):
         """Handle the initial step."""
-        _LOGGER.debug("User input received: %s", user_input)  # Debugging line for inputs
+        _LOGGER.debug("User input: %s", user_input)  # Debugging line to check input
+
         errors = {}
 
         if user_input is not None:
-            # We handle input here by creating a new entry
+            # Verarbeite die Benutzereingabe und erstelle den Konfigurationseintrag
             return self.async_create_entry(title="Timed Entity Card", data=user_input)
 
+        # Falls keine Eingabe gemacht wird, dann zeige das Formular an
         data_schema = vol.Schema({
             vol.Required("main_entity"): cv.entity_id,
             vol.Optional("default_time", default="00:05:00"): str,
