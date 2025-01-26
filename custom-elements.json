@@ -1,0 +1,11 @@
+{
+  "elements": [
+    {
+      "name": "timed-entity-card",
+      "description": "A card to control entities with time-based actions.",
+      "preview": "/local/timed-entity-card/preview.png",
+      "url": "/local/timed-entity-card/timed-entity-card.js",
+      "type": "module"
+    }
+  ]
+}
