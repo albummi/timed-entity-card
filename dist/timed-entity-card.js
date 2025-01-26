@@ -1,39 +1,35 @@
 class TimedEntityCard extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({
+      mode: "open"
+    });
   }
-
   set hass(hass) {
     this._hass = hass;
-    if (!this.shadowRoot.querySelector('div')) {
+    if (!this.shadowRoot.querySelector("div")) {
       this._render();
     }
   }
-
   setConfig(config) {
     if (!config.main_entity) {
-      throw new Error('main_entity is required.');
+      throw new Error("main_entity is required.");
     }
     this.config = config;
     this._render();
   }
-
   static getConfigElement() {
-    return document.createElement('timed-entity-card-editor');
+    return document.createElement("timed-entity-card-editor");
   }
-
   static getStubConfig() {
     return {
-      main_entity: '',
+      main_entity: "",
       countdown_time: 10,
       entities_to_switch_off: []
     };
   }
-
   _render() {
     const { main_entity } = this.config;
-
     this.shadowRoot.innerHTML = `
       <style>
         :host {
@@ -53,32 +49,32 @@ class TimedEntityCard extends HTMLElement {
         <button id="startButton">Start ${main_entity}</button>
       </div>
     `;
-
-    this.shadowRoot.querySelector('#startButton').addEventListener('click', () => {
-      this._startCountdown();
-    });
+    this.shadowRoot
+      .querySelector("#startButton")
+      .addEventListener("click", () => {
+        this._startCountdown();
+      });
   }
-
   _startCountdown() {
     const { main_entity, countdown_time, entities_to_switch_off } = this.config;
-
-    this._hass.callService('homeassistant', 'turn_on', { entity_id: main_entity });
-
+    this._hass.callService("homeassistant", "turn_on", {
+      entity_id: main_entity
+    });
     setTimeout(() => {
-      (entities_to_switch_off || [main_entity]).forEach(entity => {
-        this._hass.callService('homeassistant', 'turn_off', { entity_id: entity });
+      (entities_to_switch_off || [main_entity]).forEach((entity) => {
+        this._hass.callService("homeassistant", "turn_off", {
+          entity_id: entity
+        });
       });
     }, countdown_time * 1000);
   }
 }
-
-if (!customElements.get('timed-entity-card')) {
-  customElements.define('timed-entity-card', TimedEntityCard);
+if (!customElements.get("timed-entity-card")) {
+  customElements.define("timed-entity-card", TimedEntityCard);
 }
-
 window.customCards = window.customCards || [];
 window.customCards.push({
-  type: 'timed-entity-card',
-  name: 'Timed Entity Card',
-  description: 'A card to control entities with a timer.'
+  type: "timed-entity-card",
+  name: "Timed Entity Card",
+  description: "A card to control entities with a timer."
 });

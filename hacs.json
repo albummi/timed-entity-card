@@ -2,6 +2,6 @@
   "name": "Timed Entity Card",
   "content_in_root": false,
   "filename": "dist/timed-entity-card.js",
-  "domains": ["frontend"],
+  "domains": ["lovelace"],
   "render_readme": true
 }

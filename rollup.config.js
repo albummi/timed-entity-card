@@ -1,4 +1,5 @@
 import resolve from '@rollup/plugin-node-resolve';
+import { terser } from "rollup-plugin-terser";
 
 export default {
   input: 'src/timed-entity-card.js',
@@ -6,5 +7,5 @@ export default {
     file: 'dist/timed-entity-card.js',
     format: 'es',
   },
-  plugins: [resolve()],
+  plugins: [resolve(), terser()],
 };
