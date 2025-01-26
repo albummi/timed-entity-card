@@ -1,9 +1,16 @@
-start_timer:
-  description: "Startet einen Countdown für eine Entität."
+turn_on_timer:
+  description: Turn on the timer for an entity
   fields:
     entity_id:
-      description: "Die Entität, die eingeschaltet wird."
-      example: "switch.example"
-    duration:
-      description: "Dauer des Countdowns in Sekunden."
-      example: 3600
+      description: The entity to control
+      example: light.living_room
+    countdown_time:
+      description: Countdown time in seconds
+      example: 3600  # 1 hour
+
+turn_off_timer:
+  description: Turn off the timer for an entity when the countdown ends
+  fields:
+    entity_id:
+      description: The entity to control
+      example: light.living_room

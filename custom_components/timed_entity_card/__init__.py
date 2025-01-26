@@ -1,14 +1,10 @@
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.core import HomeAssistant
+from homeassistant import config_entries
+from homeassistant.const import CONF_NAME
 from .const import DOMAIN
 
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up Timed Entity Card from a config entry."""
-    hass.data.setdefault(DOMAIN, {})
-    hass.data[DOMAIN][entry.entry_id] = entry.data
+async def async_setup(hass, config):
     return True
 
-async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Unload a config entry."""
-    hass.data[DOMAIN].pop(entry.entry_id, None)
+async def async_setup_entry(hass, entry):
+    """Set up the timed entity card integration."""
     return True
