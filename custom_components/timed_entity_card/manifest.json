@@ -6,10 +6,8 @@
   "dependencies": [],
   "codeowners": ["@albummi"],
   "requirements": [],
-  "config_flow": false,
-  "iot_class": "local_polling",
-  "integration_type": "custom",
-  "icons": {
-    "mdi:timer-sand": "icon.png"
-  }
+  "config_flow": true,
+  "iot_class": "cloud_polling",
+  "components": ["lovelace"],
+  "homeassistant": "2022.5.0"
 }
