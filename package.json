@@ -1,10 +1,15 @@
 {
   "name": "timed-entity-card",
   "version": "1.0.0",
-  "dependencies": {},
+  "description": "A timed entity control card for Home Assistant",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src --out-dir dist --copy-files"
+  },
+  "author": "Albummi",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0"
-  },
-  "main": "timed-entity-card.js"
+  }
 }

@@ -1,13 +1,10 @@
 {
   "domain": "timed_entity_card",
   "name": "Timed Entity Card",
-  "version": "1.0.0",
   "documentation": "https://github.com/albummi/timed-entity-card",
   "dependencies": [],
   "codeowners": ["@albummi"],
-  "requirements": [],
   "config_flow": true,
-  "iot_class": "cloud_polling",
-  "components": ["lovelace"],
-  "homeassistant": "2022.5.0"
+  "integration_type": "addon",
+  "iot_class": "cloud_polling"
 }
