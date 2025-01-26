@@ -35,6 +35,7 @@ class TimedEntityCard extends HTMLElement {
         :host {
           display: block;
           padding: 16px;
+          font-family: Arial, sans-serif;
         }
         button {
           background: var(--primary-color);
@@ -57,11 +58,24 @@ class TimedEntityCard extends HTMLElement {
   }
   _startCountdown() {
     const { main_entity, countdown_time, entities_to_switch_off } = this.config;
+    if (!this._hass || !main_entity) {
+      console.error("No Home Assistant instance or main entity configured.");
+      return;
+    }
+
+    // Ensure that main entity is turned on
     this._hass.callService("homeassistant", "turn_on", {
       entity_id: main_entity
     });
+
+    // Set a timeout to turn off entities after the countdown
     setTimeout(() => {
-      (entities_to_switch_off || [main_entity]).forEach((entity) => {
+      // Turn off the main entity or any additional entities
+      const entities =
+        entities_to_switch_off && entities_to_switch_off.length > 0
+          ? entities_to_switch_off
+          : [main_entity];
+      entities.forEach((entity) => {
         this._hass.callService("homeassistant", "turn_off", {
           entity_id: entity
         });
