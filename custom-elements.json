@@ -1,6 +1,0 @@
-{
-  "name": "timed-entity-card",
-  "description": "A timed entity card for controlling lights or other entities with a countdown or schedule",
-  "url": "/local/timed-entity-card.js",
-  "type": "module"
-}
