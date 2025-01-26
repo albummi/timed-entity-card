@@ -1,10 +1,7 @@
 {
   "name": "Timed Entity Card",
-  "category": "frontend",
-  "domain": "timed_entity_card",
-  "version": "1.0.0",
-  "dependencies": [],
-  "codeowners": ["@albummi"],
-  "description": "Eine Karte, die es ermöglicht, eine Entität zu aktivieren und nach einer bestimmten Zeit auszuschalten.",
-  "documentation": "https://github.com/albummi/timed-entity-card"
+  "content_in_root": false,
+  "filename": "src/timed-entity-card.js",
+  "domains": ["frontend"],
+  "render_readme": true
 }
