@@ -1,0 +1,18 @@
+{
+    "title": "Timed Entity Card",
+    "description": "Eine Karte zum Steuern einer Entität mit Countdown.",
+    "fields": {
+        "entity": {
+            "name": "Entität",
+            "description": "Die zu steuernde Entität."
+        },
+        "default_duration": {
+            "name": "Standarddauer",
+            "description": "Standard-Countdown-Zeit (HH:MM:SS)."
+        },
+        "extra_entities": {
+            "name": "Zusätzliche Entitäten",
+            "description": "Entitäten, die nach Ablauf ebenfalls abgeschaltet werden."
+        }
+    }
+}

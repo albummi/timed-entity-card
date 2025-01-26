@@ -1,0 +1,8 @@
+{
+    "state": {
+        "on": "On",
+        "off": "Off"
+    },
+    "title": "Timed Entity Card",
+    "description": "Control an entity with a countdown timer."
+}

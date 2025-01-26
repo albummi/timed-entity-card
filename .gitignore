@@ -1,0 +1,6 @@
+*.pyc
+__pycache__/
+.vscode/
+.env
+node_modules/
+www/*.js.map

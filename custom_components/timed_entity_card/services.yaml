@@ -1,0 +1,9 @@
+start_timer:
+  description: "Startet einen Countdown für eine Entität."
+  fields:
+    entity_id:
+      description: "Die Entität, die eingeschaltet wird."
+      example: "switch.example"
+    duration:
+      description: "Dauer des Countdowns in Sekunden."
+      example: 3600
