@@ -1,9 +1,7 @@
 {
   "name": "Timed Entity Card",
-  "repository": "albummi/timed-entity-card",
-  "version": "1.0.0",
-  "homeassistant": "2021.12.0",
-  "dependencies": [],
-  "codeowners": ["@albummi"],
-  "config_flow": true
+  "content_in_root": false,
+  "filename": "dist/timed-entity-card.js",
+  "domains": ["lovelace"],
+  "render_readme": true
 }
