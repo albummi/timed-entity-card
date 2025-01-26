@@ -1,0 +1,7 @@
+{
+    "name": "Timed Entity Card",
+    "content_in_root": false,
+    "domains": ["custom_components"],
+    "homeassistant": "2023.1.0",
+    "render_readme": true
+}
