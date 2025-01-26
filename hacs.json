@@ -1,7 +1,7 @@
 {
   "name": "Timed Entity Card",
   "content_in_root": false,
-  "filename": "src/timed-entity-card.js",
+  "filename": "dist/timed-entity-card.js",
   "domains": ["frontend"],
   "render_readme": true
 }

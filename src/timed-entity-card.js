@@ -1,82 +1,77 @@
 class TimedEntityCard extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
   }
 
   set hass(hass) {
     this._hass = hass;
-    if (!this.shadowRoot.querySelector("button")) {
+    if (!this.shadowRoot.querySelector('div')) {
       this._render();
     }
   }
 
-  static getConfigElement() {
-    return document.createElement("timed-entity-card-editor");
-  }
-
-  static getStubConfig() {
-    return {
-      main_entity: "",
-      countdown_time: 30,
-      entities_to_switch_off: [],
-    };
-  }
-
   setConfig(config) {
     if (!config.main_entity) {
-      throw new Error("Die Hauptentität (main_entity) ist erforderlich.");
+      throw new Error('main_entity is required.');
     }
     this.config = config;
     this._render();
   }
 
+  static getConfigElement() {
+    return document.createElement('timed-entity-card-editor');
+  }
+
+  static getStubConfig() {
+    return {
+      main_entity: '',
+      countdown_time: 10,
+      entities_to_switch_off: []
+    };
+  }
+
   _render() {
+    const { main_entity } = this.config;
+
     this.shadowRoot.innerHTML = `
       <style>
-        button { 
-          background-color: var(--primary-color); 
-          color: white; 
-          border: none; 
-          padding: 10px; 
-          cursor: pointer; 
+        :host {
+          display: block;
+          padding: 16px;
+        }
+        button {
+          background: var(--primary-color);
+          color: white;
+          border: none;
+          padding: 10px;
+          border-radius: 5px;
+          cursor: pointer;
         }
       </style>
       <div>
-        <button id="startButton">Countdown starten</button>
+        <button id="startButton">Start ${main_entity}</button>
       </div>
     `;
 
-    this.shadowRoot.querySelector("#startButton").addEventListener("click", () => {
+    this.shadowRoot.querySelector('#startButton').addEventListener('click', () => {
       this._startCountdown();
     });
   }
 
-  async _startCountdown() {
+  _startCountdown() {
     const { main_entity, countdown_time, entities_to_switch_off } = this.config;
 
     // Schaltet die Hauptentität ein
-    await this._toggleEntity(main_entity, true);
+    this._hass.callService('homeassistant', 'turn_on', { entity_id: main_entity });
 
-    // Zeigt ein Eingabefenster für die Countdown-Zeit an
-    const time = window.prompt(
-      "Countdown-Zeit in Minuten (Standard: " + countdown_time + "):",
-      countdown_time
-    );
-
-    const duration = parseInt(time) || countdown_time;
-
-    setTimeout(async () => {
-      for (const entity of entities_to_switch_off || [main_entity]) {
-        await this._toggleEntity(entity, false);
-      }
-    }, duration * 60000);
-  }
-
-  async _toggleEntity(entity_id, state) {
-    const service = state ? "turn_on" : "turn_off";
-    await this._hass.callService("homeassistant", service, { entity_id });
+    // Countdown starten
+    setTimeout(() => {
+      (entities_to_switch_off || [main_entity]).forEach(entity => {
+        this._hass.callService('homeassistant', 'turn_off', { entity_id: entity });
+      });
+    }, countdown_time * 1000);
   }
 }
 
-customElements.define("timed-entity-card", TimedEntityCard);
+customElements.define('timed-entity-card', TimedEntityCard);
