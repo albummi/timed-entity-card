@@ -1,10 +1,5 @@
-[
-  {
-    "name": "timed-entity-card",
-    "url": "/local/timed-entity-card.js"
-  },
-  {
-    "name": "timed-entity-card-editor",
-    "url": "/local/timed-entity-card-editor.js"
-  }
-]
+{
+  "resources": [
+    "/local/timed-entity-card.js"
+  ]
+}

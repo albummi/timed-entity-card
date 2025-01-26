@@ -25,18 +25,43 @@ class TimedEntityCard extends HTMLElement {
     const showAnalogClock = this.config.show_options?.includes("analog_clock");
 
     return `
-      ${showCountdown ? `<div><label for="countdown">Countdown (hh:mm:ss):</label><input type="text" id="countdown" placeholder="00:10:00"></div>` : ""}
-      ${showDigitalClock ? `<div><label for="digital_time">Digitaluhr (hh:mm):</label><input type="time" id="digital_time"></div>` : ""}
-      ${showAnalogClock ? `
-        <div><label for="analog_time">Analoguhr (hh:mm):</label><input type="time" id="analog_time"></div>
-        <div style="text-align: center; margin-top: 10px;">
-          <svg width="100" height="100" id="analog-clock">
-            <circle cx="50" cy="50" r="48" stroke="black" stroke-width="2" fill="white"/>
-            <line id="hour-hand" x1="50" y1="50" x2="50" y2="20" stroke="black" stroke-width="4" />
-            <line id="minute-hand" x1="50" y1="50" x2="50" y2="10" stroke="black" stroke-width="2" />
-          </svg>
-        </div>
-      ` : ""}
+      ${
+        showCountdown
+          ? `
+          <div>
+            <label for="countdown">Countdown (hh:mm:ss):</label>
+            <input type="text" id="countdown" placeholder="00:10:00">
+          </div>
+        `
+          : ""
+      }
+      ${
+        showDigitalClock
+          ? `
+          <div>
+            <label for="digital_time">Digitaluhr (hh:mm):</label>
+            <input type="time" id="digital_time">
+          </div>
+        `
+          : ""
+      }
+      ${
+        showAnalogClock
+          ? `
+          <div>
+            <label for="analog_time">Analoguhr (hh:mm):</label>
+            <input type="time" id="analog_time">
+          </div>
+          <div style="text-align: center; margin-top: 10px;">
+            <svg width="100" height="100" id="analog-clock">
+              <circle cx="50" cy="50" r="48" stroke="black" stroke-width="2" fill="white"/>
+              <line id="hour-hand" x1="50" y1="50" x2="50" y2="20" stroke="black" stroke-width="4" />
+              <line id="minute-hand" x1="50" y1="50" x2="50" y2="10" stroke="black" stroke-width="2" />
+            </svg>
+          </div>
+        `
+          : ""
+      }
     `;
   }
 
@@ -86,7 +111,7 @@ class TimedEntityCard extends HTMLElement {
   static getStubConfig() {
     return {
       entity: "light.example_light",
-      show_options: ["countdown", "digital_clock", "analog_clock"],
+      show_options: ["countdown", "digital_clock", "analog_clock"]
     };
   }
 }
