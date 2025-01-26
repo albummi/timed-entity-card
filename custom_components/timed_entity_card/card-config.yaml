@@ -1,0 +1,16 @@
+type: object
+properties:
+  main_entity:
+    type: string
+    description: "Die Hauptentität, die eingeschaltet wird"
+  countdown_time:
+    type: number
+    description: "Standardzeit für den Countdown in Minuten"
+  entities_to_switch_off:
+    type: array
+    items:
+      type: string
+    description: "Entitäten, die nach dem Countdown ausgeschaltet werden"
+required:
+  - main_entity
+  - countdown_time
