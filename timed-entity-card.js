@@ -1,94 +1,118 @@
-class TimedEntityCard extends HTMLElement {
-  constructor() {
-    super();
-    this.attachShadow({
-      mode: "open"
-    });
-  }
-  set hass(hass) {
-    this._hass = hass;
-    if (!this.shadowRoot.querySelector("div")) {
-      this._render();
+import {
+  LitElement,
+  html,
+  css
+} from "https://unpkg.com/lit@2.0.0-beta.3?module";
+class TimedEntityCard extends LitElement {
+  static properties = (() => ({
+    hass: {
+      type: Object
+    },
+    config: {
+      type: Object
     }
-  }
-  setConfig(config) {
-    if (!config.main_entity) {
-      throw new Error("main_entity is required.");
-    }
-    this.config = config;
-    this._render();
-  }
-  static getConfigElement() {
-    return document.createElement("timed-entity-card-editor");
-  }
+  }))();
   static getStubConfig() {
     return {
-      main_entity: "",
-      countdown_time: 10,
-      entities_to_switch_off: []
+      mainEntity: "",
+      countdownTime: 300,
+      entitiesToTurnOff: []
     };
   }
-  _render() {
-    const { main_entity } = this.config;
-    this.shadowRoot.innerHTML = `
-      <style>
-        :host {
-          display: block;
-          padding: 16px;
-          font-family: Arial, sans-serif;
-        }
-        button {
-          background: var(--primary-color);
-          color: white;
-          border: none;
-          padding: 10px;
-          border-radius: 5px;
-          cursor: pointer;
-        }
-      </style>
-      <div>
-        <button id="startButton">Start ${main_entity}</button>
+  render() {
+    return html`
+      <ha-card>
+        <div class="card-content">
+          <h1>Timed Entity Card</h1>
+          <p>Main Entity: ${this.config?.mainEntity || "None"}</p>
+          <p>Countdown Time: ${
+            this.config?.countdownTime || "Not Set"
+          } seconds</p>
+          <p>Entities to Turn Off: ${
+            this.config?.entitiesToTurnOff.join(", ") || "None"
+          }</p>
+        </div>
+      </ha-card>
+    `;
+  }
+  static get styles() {
+    return css`
+      ha-card {
+        padding: 16px;
+      }
+    `;
+  }
+  setConfig(config) {
+    if (!config.mainEntity) {
+      throw new Error("You need to define a main entity.");
+    }
+    this.config = config;
+  }
+}
+class TimedEntityCardConfig extends LitElement {
+  static properties = (() => ({
+    hass: {
+      type: Object
+    },
+    config: {
+      type: Object
+    }
+  }))();
+  render() {
+    return html`
+      <div class="card-config">
+        <label>Main Entity:</label>
+        <ha-entity-picker
+          .hass=${this.hass}
+          .value=${this.config?.mainEntity || ""}
+          @change=${this._mainEntityChanged}
+        ></ha-entity-picker>
+        
+        <label>Countdown Time (seconds):</label>
+        <ha-textfield
+          .value=${this.config?.countdownTime || ""}
+          @input=${this._countdownTimeChanged}
+        ></ha-textfield>
+
+        <label>Entities to Turn Off:</label>
+        <ha-entity-picker
+          .hass=${this.hass}
+          .value=${this.config?.entitiesToTurnOff || []}
+          @change=${this._entitiesToTurnOffChanged}
+          multiple
+        ></ha-entity-picker>
       </div>
     `;
-    this.shadowRoot
-      .querySelector("#startButton")
-      .addEventListener("click", () => {
-        this._startCountdown();
-      });
   }
-  _startCountdown() {
-    const { main_entity, countdown_time, entities_to_switch_off } = this.config;
-    if (!this._hass || !main_entity) {
-      console.error("No Home Assistant instance or main entity configured.");
-      return;
-    }
-
-    // Ensure that main entity is turned on
-    this._hass.callService("homeassistant", "turn_on", {
-      entity_id: main_entity
-    });
-
-    // Set a timeout to turn off entities after the countdown
-    setTimeout(() => {
-      // Turn off the main entity or any additional entities
-      const entities =
-        entities_to_switch_off && entities_to_switch_off.length > 0
-          ? entities_to_switch_off
-          : [main_entity];
-      entities.forEach((entity) => {
-        this._hass.callService("homeassistant", "turn_off", {
-          entity_id: entity
-        });
-      });
-    }, countdown_time * 1000);
+  _mainEntityChanged(event) {
+    this.config = {
+      ...this.config,
+      mainEntity: event.target.value
+    };
+  }
+  _countdownTimeChanged(event) {
+    this.config = {
+      ...this.config,
+      countdownTime: event.target.value
+    };
+  }
+  _entitiesToTurnOffChanged(event) {
+    this.config = {
+      ...this.config,
+      entitiesToTurnOff: event.target.value
+    };
+  }
+  static get styles() {
+    return css`
+      .card-config {
+        display: grid;
+        gap: 10px;
+      }
+      label {
+        font-weight: bold;
+      }
+    `;
   }
 }
-if (!customElements.get("timed-entity-card")) {
-  customElements.define("timed-entity-card", TimedEntityCard);
-}
-window.customCards = window.customCards || [];
-window.customCards.push({
-  type: "timed-entity-card",
-  name: "Timed Entity Card",
-  description: "A card to control entities with a timer."
-});
+customElements.define("timed-entity-card", TimedEntityCard);
+customElements.define("timed-entity-card-config", TimedEntityCardConfig);
